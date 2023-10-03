@@ -33,6 +33,7 @@ class CurlRequest
             $this->response->status = false;
             $this->response->message = curl_error($curl);
             $this->response->code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            return "Code: {$this->response->code} | Message: {$this->response->message}";
         } else {
             $this->response->status = true;
             $this->response->code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
@@ -41,6 +42,6 @@ class CurlRequest
 
         curl_close($curl);
 
-        return $this->response;
+        return $this->response->data;
     }
 }
