@@ -9,4 +9,4 @@ cd /path/to/project/
 
 ```bash
 composer install
-```
+
