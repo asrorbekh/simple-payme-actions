@@ -6,7 +6,6 @@ use App\Service\LogService;
 
 class CurlRequest
 {
-
     private object $response;
 
     public function __construct()
@@ -27,15 +26,21 @@ class CurlRequest
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $requestBody);
 
-        $this->response->data = curl_exec($curl);
+        $response = curl_exec($curl);
 
         if (curl_errno($curl)) {
             LogService::log('curl', ['curl_error' => curl_error($curl)]);
-            return 'cURL error: ' . curl_error($curl);
+            $this->response->status = false;
+            $this->response->message = curl_error($curl);
+            $this->response->code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        } else {
+            $this->response->status = true;
+            $this->response->code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            $this->response->data = $response;
         }
 
         curl_close($curl);
 
-        return $this->response->data;
+        return $this->response;
     }
 }
