@@ -17,7 +17,7 @@ class Payme
 
         $this->headers = [
             'Host: checkout.test.paycom.uz', // Example: checkout.test.paycom.uz
-            'X-Auth: YOUR_AUTH_KEY', // Example: 5e730e8e0b852a417aa49ceb
+            'X-Auth: 5e730e8e0b852a417aa49ceb', // Example: 5e730e8e0b852a417aa49ceb
             'Cache-Control: no-cache',
             'Content-Type: application/json',
         ];
